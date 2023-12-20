@@ -14,7 +14,7 @@ QueryDsl : 5.0.0 <br>
 # ERD 링크
 [ERD 클라우드 바로가기](https://www.erdcloud.com/u/lkt900520@gmail.com)
 
-# 상품/주문/결제 요구사항
+# 기능 목록
 |상품|주문/결제|
 |------|---|
 |등록|등록|
