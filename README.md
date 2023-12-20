@@ -9,10 +9,10 @@ MySql : 8.0.32 <br>
 QueryDsl : 5.0.0 <br>
 
 # 스웨거
-[EC2 서버 링크](http://13.209.75.253:8080/swagger-ui/index.html)
+[EC2 서버 바로가기](http://13.209.75.253:8080/swagger-ui/index.html)
 
 # ERD 링크
-[링크](https://www.erdcloud.com/u/lkt900520@gmail.com)
+[ERD 클라우드 바로가기](https://www.erdcloud.com/u/lkt900520@gmail.com)
 
 # 도메인 정리
 |상품|주문/결제|
