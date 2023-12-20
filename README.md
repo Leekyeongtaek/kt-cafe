@@ -9,8 +9,8 @@ MySql : 8.0.32 <br>
 QueryDsl : 5.0.0 <br>
 
 # 링크 바로가기
-[EC2 스웨거 바로가기](http://13.209.75.253:8080/swagger-ui/index.html)<br>
-[ERD 클라우드 바로가기](https://www.erdcloud.com/u/lkt900520@gmail.com)
+[EC2 스웨거](http://13.209.75.253:8080/swagger-ui/index.html)<br>
+[ERD 클라우드](https://www.erdcloud.com/u/lkt900520@gmail.com)
 
 # 기능 목록
 |상품|주문/결제|
