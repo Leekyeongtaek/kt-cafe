@@ -50,7 +50,7 @@ public class OrderController {
     }
 
     @GetMapping("/{memberId}")
-    @Operation(summary = "주문 기록 검색 및 조회")
+    @Operation(summary = "주문 목록 검색")
     @Parameters({
             @Parameter(name = "pageable", hidden = true),
             @Parameter(name = "orderSearchCond", hidden = true),

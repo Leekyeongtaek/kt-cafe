@@ -51,7 +51,7 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    @Operation(summary = "상품 검색 및 조회")
+    @Operation(summary = "상품 목록 검색")
     @Parameters({
             @Parameter(name = "pageable", hidden = true),
             @Parameter(name = "productSearchCond", hidden = true),

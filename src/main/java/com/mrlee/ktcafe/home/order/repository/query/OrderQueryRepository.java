@@ -2,7 +2,7 @@ package com.mrlee.ktcafe.home.order.repository.query;
 
 import com.mrlee.ktcafe.home.order.domain.*;
 import com.mrlee.ktcafe.home.order.service.dto.OrderSearchCond;
-import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import com.mrlee.ktcafe.home.order.repository.query.dto.OrderQueryInquiryList;
@@ -19,7 +19,6 @@ import static com.mrlee.ktcafe.home.order.domain.QOrderProduct.orderProduct;
 import static com.mrlee.ktcafe.home.order.domain.QPayment.payment;
 import static com.mrlee.ktcafe.home.order.domain.QReview.review;
 
-
 @RequiredArgsConstructor
 @Repository
 public class OrderQueryRepository {
@@ -27,18 +26,21 @@ public class OrderQueryRepository {
     private final JPAQueryFactory queryFactory;
 
     public Page<OrderQueryInquiryList> searchOrder(Long memberId, Pageable pageable, OrderSearchCond orderSearchCond) {
+        if (StringUtils.hasText(orderSearchCond.getProductName())) {
+            return searchOrderWithOrderProductName(memberId, pageable, orderSearchCond);
+        } else {
+            return searchOrderSimple(memberId, pageable);
+        }
+    }
 
+    private PageImpl<OrderQueryInquiryList> searchOrderSimple(Long memberId, Pageable pageable) {
         List<Order> result = queryFactory.select(order)
                 .from(order)
                 .leftJoin(order.payment, payment)
                 .fetchJoin()
                 .leftJoin(order.review, review)
                 .fetchJoin()
-                .join(order.orderProducts, orderProduct)
-                .where(
-                        order.memberId.eq(memberId),
-                        orderProductNameEq(orderSearchCond.getProductName())
-                )
+                .where(order.memberId.eq(memberId))
                 .orderBy(order.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -46,11 +48,7 @@ public class OrderQueryRepository {
 
         Long totalCount = queryFactory.select(order.count())
                 .from(order)
-                .join(order.orderProducts, orderProduct)
-                .where(
-                        order.memberId.eq(memberId),
-                        orderProductNameEq(orderSearchCond.getProductName())
-                )
+                .where(order.memberId.eq(memberId))
                 .fetchOne();
 
         List<OrderQueryInquiryList> content = result.stream()
@@ -60,7 +58,43 @@ public class OrderQueryRepository {
         return new PageImpl<>(content, pageable, totalCount);
     }
 
-    private BooleanExpression orderProductNameEq(String name) {
-        return StringUtils.hasText(name) ? orderProduct.name.contains(name) : null;
+    private PageImpl<OrderQueryInquiryList> searchOrderWithOrderProductName(Long memberId, Pageable pageable, OrderSearchCond orderSearchCond) {
+        QOrder subOrder = new QOrder("subOrder");
+
+        List<Order> result = queryFactory.selectFrom(order)
+                .leftJoin(order.payment, payment)
+                .fetchJoin()
+                .leftJoin(order.review, review)
+                .fetchJoin()
+                .where(order.id.in(
+                        JPAExpressions
+                                .selectDistinct(subOrder.id)
+                                .from(subOrder)
+                                .join(subOrder.orderProducts, orderProduct)
+                                .where(
+                                        subOrder.memberId.eq(memberId),
+                                        orderProduct.name.contains(orderSearchCond.getProductName()))
+                ))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(order.id.desc())
+                .fetch();
+
+        Long totalCount = queryFactory.select(order.count())
+                .from(order)
+                .where(order.id.in(
+                        JPAExpressions
+                                .selectDistinct(subOrder.id)
+                                .from(subOrder)
+                                .join(subOrder.orderProducts, orderProduct)
+                                .where(subOrder.memberId.eq(memberId),
+                                        orderProduct.name.contains(orderSearchCond.getProductName()))
+                )).fetchOne();
+
+        List<OrderQueryInquiryList> content = result.stream()
+                .map(OrderQueryInquiryList::new)
+                .toList();
+
+        return new PageImpl<>(content, pageable, totalCount);
     }
 }
