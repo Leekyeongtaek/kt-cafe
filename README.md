@@ -13,9 +13,7 @@ QueryDsl : 5.0.0 <br>
 [EC2 스웨거](http://13.209.75.253:8080/swagger-ui/index.html)<br>
 
 # 도메인 모델
-<p align="center">
-  <img src="https://github.com/Leekyeongtaek/kt-cafe/issues/1#issue-2054730088">
-</p>
+[도메인 다이어그램](https://github.com/Leekyeongtaek/kt-cafe/issues/1#issue-2054730088)
 
 # 데이터베이스 ERD 링크
 [ERD 클라우드](https://www.erdcloud.com/u/lkt900520@gmail.com)
