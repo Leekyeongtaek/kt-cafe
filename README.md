@@ -12,7 +12,7 @@ QueryDsl : 5.0.0 <br>
 # 운영 스웨거 링크
 [EC2 스웨거](http://13.209.75.253:8080/swagger-ui/index.html)<br>
 
-# ERD 링크
+# 데이터베이스 ERD 링크
 [ERD 클라우드](https://www.erdcloud.com/u/lkt900520@gmail.com)
 
 # 기능 목록
