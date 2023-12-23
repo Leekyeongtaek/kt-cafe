@@ -8,26 +8,20 @@ import com.mrlee.ktcafe.home.order.repository.query.dto.OrderQueryInquiryList;
 import com.mrlee.ktcafe.home.order.service.dto.*;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
-import static com.mrlee.ktcafe.home.order.OrderFixture.*;
-import static org.assertj.core.api.Assertions.*;
+import static com.mrlee.ktcafe.home.order.OrderFixture.anCreateReviewInput;
+import static com.mrlee.ktcafe.home.order.OrderFixture.anUpdateReviewInput;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Slf4j
 @Sql(value = "/db/sql/orders/orders.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -76,10 +70,20 @@ class OrderServiceTest {
     }
 
     @Test
-    void 주문_상품_검색() {
+    void 목록_검색() {
         Long memberId = 1L;
         PageRequest pageRequest = PageRequest.of(0, 10);
-        OrderSearchCond orderSearchCond = new OrderSearchCond("카페라떼");
+        Page<OrderQueryInquiryList> orderQueryInquiryLists = orderQueryRepository.searchOrder(memberId, pageRequest, new OrderSearchCond());
+        List<OrderQueryInquiryList> result = orderQueryInquiryLists.getContent();
+
+        assertThat(result.size()).isEqualTo(2);
+    }
+
+        @Test
+    void 목록_검색시_주문상품을_조건으로_검색할_수_있다() {
+        Long memberId = 1L;
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        OrderSearchCond orderSearchCond = new OrderSearchCond("라떼");
 
         Page<OrderQueryInquiryList> resultPage = orderQueryRepository.searchOrder(memberId, pageRequest, orderSearchCond);
         List<OrderQueryInquiryList> result = resultPage.getContent();

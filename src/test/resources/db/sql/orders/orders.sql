@@ -93,7 +93,7 @@ INSERT INTO `order_option` (`order_option_group_id`, `name`, `price`)
 VALUES (1, '온도 : HOT / 원두 : 블랙그라운드', 0);
 
 INSERT INTO `order_product` (`order_product_id`, `order_id`, `product_id`, `name`, `price`, `count`, `created_date`)
-VALUES (2, 1, 2, '카페라떼(R)', 3000, 1, CURRENT_TIMESTAMP);
+VALUES (2, 1, 2, '아메리카노(L)', 2500, 1, CURRENT_TIMESTAMP);
 
 INSERT INTO `order_option_group` (`order_option_group_id`, `order_product_id`, `name`, `created_date`)
 VALUES (2, 2, '온도 및 원두 선택', CURRENT_TIMESTAMP);
@@ -105,22 +105,37 @@ INSERT INTO `orders` (`order_id`, `member_id`, `payment_id`, `order_time`, `orde
 VALUES (2, 1, 2, CURRENT_TIMESTAMP, 'ORDERED', CURRENT_TIMESTAMP);
 
 INSERT INTO `order_product` (`order_product_id`, `order_id`, `product_id`, `name`, `price`, `count`, `created_date`)
-VALUES (3, 2, 3, '콜드브루(R)', 4000, 1, CURRENT_TIMESTAMP);
+VALUES (3, 2, 1, '아메리카노(R)', 2000, 1, CURRENT_TIMESTAMP);
 
-INSERT INTO `orders` (`order_id`, `member_id`, `payment_id`, `order_time`, `order_status`, `created_date`)
-VALUES (3, 1, 3, CURRENT_TIMESTAMP, 'ORDERED', CURRENT_TIMESTAMP);
+INSERT INTO `order_option_group` (`order_option_group_id`, `order_product_id`, `name`, `created_date`)
+VALUES (3, 1, '온도 및 원두 선택', CURRENT_TIMESTAMP);
+
+INSERT INTO `order_option` (`order_option_group_id`, `name`, `price`)
+VALUES (3, '온도 : HOT / 원두 : 블랙그라운드', 0);
 
 INSERT INTO `order_product` (`order_product_id`, `order_id`, `product_id`, `name`, `price`, `count`, `created_date`)
-VALUES (4, 3, 4, '아인슈페너(R)', 5000, 1, CURRENT_TIMESTAMP);
+VALUES (4, 2, 2, '아메리카노(L)', 2500, 1, CURRENT_TIMESTAMP);
+
+INSERT INTO `order_option_group` (`order_option_group_id`, `order_product_id`, `name`, `created_date`)
+VALUES (4, 2, '온도 및 원두 선택', CURRENT_TIMESTAMP);
+
+INSERT INTO `order_option` (`order_option_group_id`, `name`, `price`)
+VALUES (4, '온도 : ICE / 원두 : 블랙그라운드', 0);
+
+INSERT INTO `order_product` (`order_product_id`, `order_id`, `product_id`, `name`, `price`, `count`, `created_date`)
+VALUES (5, 2, 2, '카페라떼(R)', 3000, 1, CURRENT_TIMESTAMP);
+
+INSERT INTO `order_option_group` (`order_option_group_id`, `order_product_id`, `name`, `created_date`)
+VALUES (5, 2, '추가선택', CURRENT_TIMESTAMP);
+
+INSERT INTO `order_option` (`order_option_group_id`, `name`, `price`)
+VALUES (5, '샷추가', 500);
 
 INSERT INTO `payment` (`payment_id`, `total_amount`, `discount_amount`, `payment_amount`, `payment_method`, `created_date`)
-VALUES (1, 5000, 0, 5000, 'CARD', CURRENT_TIMESTAMP);
+VALUES (1, 4500, 0, 4500, 'CARD', CURRENT_TIMESTAMP);
 
 INSERT INTO `payment` (`payment_id`, `total_amount`, `discount_amount`, `payment_amount`, `payment_method`, `created_date`)
-VALUES (2, 4000, 0, 4000, 'CARD', CURRENT_TIMESTAMP);
-
-INSERT INTO `payment` (`payment_id`, `total_amount`, `discount_amount`, `payment_amount`, `payment_method`, `created_date`)
-VALUES (3, 5000, 0, 5000, 'CARD', CURRENT_TIMESTAMP);
+VALUES (2, 7500, 0, 7500, 'CARD', CURRENT_TIMESTAMP);
 
 INSERT INTO `review` (`review_id`, `member_id`, `order_id`, `rating`, `contents`, `photo_image`, `created_date`)
 VALUES (1, 1, 1, 3, '맛있어요!!', 'www.photo.com', CURRENT_TIMESTAMP);
