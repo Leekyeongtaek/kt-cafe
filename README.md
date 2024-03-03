@@ -10,7 +10,7 @@ MySql : 8.0.32 <br>
 QueryDsl : 5.0.0 <br>
 
 # 운영 스웨거 링크
-[EC2 스웨거](http://13.209.75.253:8080/swagger-ui/index.html)<br>
+[EC2 스웨거](http://13.125.206.186:8080/swagger-ui/index.html)<br>
 
 # 도메인 모델
 [도메인 다이어그램](https://github.com/Leekyeongtaek/kt-cafe/issues/1#issue-2054730088)
