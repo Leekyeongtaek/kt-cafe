@@ -9,9 +9,6 @@ SpringBoot : 3.1.5 <br>
 MySql : 8.0.32 <br>
 QueryDsl : 5.0.0 <br>
 
-# 도메인 모델
-[도메인 다이어그램](https://github.com/Leekyeongtaek/kt-cafe/issues/1#issue-2054730088)
-
 # 데이터베이스 ERD 링크
 [ERD 클라우드](https://www.erdcloud.com/u/lkt900520@gmail.com)
 
