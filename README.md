@@ -10,7 +10,7 @@ MySql : 8.0.32 <br>
 QueryDsl : 5.0.0 <br>
 
 # 데이터베이스 ERD 링크
-[ERD 클라우드](https://www.erdcloud.com/u/lkt900520@gmail.com)
+[ERD 클라우드](https://www.erdcloud.com/d/Gs3M6A2AsP5WFauCC)
 
 # 기능 목록
 |상품|주문/결제|
